@@ -40,11 +40,9 @@ function displayOMDBSearchData(data) {
 function moneySubmit(oldprice) {
   $('.js-search-form').remove();
   $('.js-money-form').toggleClass('hidden');
-  // why is this not hidden?
   $('.js-money-form').submit(function(e) {
     e.preventDefault();
     var userMoneyInvestment = $(this).find('.js-query-money').val();
-    // need to make userMoneyInvestment a number
     var currentInvestmentValue = (userMoneyInvestment / oldprice) * 772;
     var result = Math.floor(currentInvestmentValue);
     $('.js-results').html('<p>Your investment would be worth $' + result + ' today.</p>');
