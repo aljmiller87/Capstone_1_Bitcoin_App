@@ -4,31 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" type="text/css" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
   <title>Bitcoin App</title>
 </head>
 <body>
-  <h1>Play the "Regret I didn't buy Bitcoin" game!</h1>
-  <form action="#" class="js-search-form">
-    <label for="query">Enter past date that you could have bought bitcoin.</label>
-    <br>
-    <label for="query">Keep in mind the first day Bitcin could be exchanged for USD was July 17, 2010</label> 
-    <br>
-    <label for="query">Please use format YYYY-MM-DD.</label>
-    <br>
-    <input type="text" class="js-query" required>
-    <button type="submit">Submit</button>
-  </form>
+
+ <div id="hi" class="maindiv maindiv-view"> 
+<button id="welcome" class="button1">Now entering the game of Regret</button>
+
+ </div>
+
+<div class="container">
+  <div id="" class="firstquestion"> 
+      <h1>Why oh why didn't I buy Bitcoin?</h1>
+      <form action="#" class="js-search-form">
+        <label for="query">Enter past date that you could have bought bitcoin.</label>
+        <br>
+        <label for="query">Keep in mind the first day Bitcin could be exchanged for USD was July 17, 2010</label> 
+        <br>
+
+        <label for="query">Please use format YYYY-MM-DD.</label>
+        <br>
+         <br>
+          <br>
+        <input  placeholder ="ex, 2012-05-25" type="text" class="js-query search" required>
+        <button class="button2" type="submit">Submit</button>
+      </form>
+  </div>
+
+
   <div class="js-money">
-    <form action="#" class="js-money-form hidden">
-      <label for="query">Enter number of dollars you would have invested. Please to not use commas or periods.</label>
-      <br>
-      <input type="text" class="js-query-money" required>
-      <button type="submit">Money!</button>
-    </form>
+        <form action="#" class="js-money-form hidden">
+          <label for="query">Enter number of dollars you would have invested. Please to not use commas or periods.</label>
+          <br>
+          <br>
+          <input placeholder="ex, 1000" type="text" class="js-query-money search" required>
+          <button class="button2" type="submit">Money!</button>
+        </form>
   </div>
   <div class="js-results">
-  
   </div>
+</div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
 </body>

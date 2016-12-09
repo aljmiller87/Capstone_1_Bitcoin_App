@@ -1,3 +1,86 @@
+body {
+	background-image: url("https://bit4coin.net/bitcoin-photo-contest/uploads/photo/image/150/thumb_BitcoinWorld.png");
+	background-size: cover;
+	background-repeat:no-repeat;
+}
+
 .hidden {
 	display: none;
 }
+
+
+.maindiv {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #3D3F47;
+	position: fixed;
+	padding-top: 250px;
+	top: 0;
+	text-align: center;
+	transform: translateX(100%);
+	z-index: 100;
+
+}
+
+.maindiv-view {
+
+transform: translateX(0%);
+
+}
+
+.button1 {
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    font-size: 80px;
+    border: none;
+    background-color: #3D3F47;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    margin-top: 90px;
+    white-space: nowrap;
+
+
+}
+
+.button1:hover {
+    background-color: #4CAF50;   
+    color: white;
+}
+
+.container {
+	background-color: #E5E5E5;
+	font-family: 'Raleway', sans-serif;
+	border: 1px solid gray;
+	border-radius: 9px;
+	width: 35%;
+	margin: auto;
+	margin-top: 20%;
+	padding: 15px;
+	padding-bottom: 35px;
+	text-align: center;
+
+}
+
+.search{
+
+	font-size: 30px;
+    border: none;
+    background-color: white;
+    border-radius: 6px;
+    color: grey;
+    font-family: 'Raleway', sans-serif;
+}
+
+
+ .button2 {
+
+	font-size: 30px;
+    border: none;
+    background-color: #4FACA3;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
