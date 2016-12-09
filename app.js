@@ -5,9 +5,7 @@ function watchSubmit() {
     e.preventDefault();
 //    var insertDate = "2015-05-15";
     var insertDate = $(this).find('.js-query').val();
-    console.log(insertDate);
-    console.log(12345);
-    
+    console.log(insertDate);    
    getDataFromApi(insertDate, displayOMDBSearchData);
   //  $('.js-search-results').html(currentValueInvestment);
   });
@@ -39,23 +37,23 @@ function displayOMDBSearchData(data) {
    $('.js-search-results').html(resultElement);
 }
 
-function moneySubmit(oldBitCoinPrice) {
+function moneySubmit(oldprice) {
+  $('.js-search-form').remove();
+  $('.js-money').toggleClass('hidden');
+  // why is this not hidden?
   $('.js-money-form').submit(function(e) {
     e.preventDefault();
-    var userMoneyInvestment = $(this).find('.js-query').val();
-    var currentInvestmentValue = (userMoneyInvestment / oldBitCoinPrice) * 772;
-    
+    var userMoneyInvestment = $(this).find('.js-query-money').val();
+    // need to make userMoneyInvestment a number
+    var currentInvestmentValue = (userMoneyInvestment / oldprice) * 772;
+    var result = Math.floor(currentInvestmentValue);
+    $('.js-results').html('<p>Your investment would be worth $' + result + ' today.</p>');
+    $('.js-results').append('<p>How does that make you feel?</p>');
   });
 }
 
 /*
-MATH
-dollarInvested = 1000;
-dateInvested = some date
-Takes dateInvested, returned oldBitcoinPrice
-numberOfBitcoinsBought = (dollarInvested/oldBitcoinPrice);
-currentInvestmentValue = numberOfBitcoinsBought * currentBitcoinPrice;
-number of bitcoins bought = 1000 / 242.02 = 4.13
-4.13 * $700
- = $2,892
+OTHER ISSUES:
+-How to make sure inputs have correct format. Throw error for wrong format
+
 */
