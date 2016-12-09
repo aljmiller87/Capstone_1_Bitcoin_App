@@ -39,7 +39,7 @@ function displayOMDBSearchData(data) {
 
 function moneySubmit(oldprice) {
   $('.js-search-form').remove();
-  $('.js-money').toggleClass('hidden');
+  $('.js-money-form').toggleClass('hidden');
   // why is this not hidden?
   $('.js-money-form').submit(function(e) {
     e.preventDefault();
