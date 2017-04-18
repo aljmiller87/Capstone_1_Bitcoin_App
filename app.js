@@ -45,13 +45,15 @@ function moneySubmit(oldprice) {
   $('.js-money-form').submit(function(e) {
     e.preventDefault();
     var userMoneyInvestment = $(this).find('.js-query-money').val();
-    var currentInvestmentValue = (userMoneyInvestment / oldprice) * 772;
-    var result = Math.floor(currentInvestmentValue);
+    var currentInvestmentValue = (userMoneyInvestment / oldprice) * 1200;
+    var dollars = Math.floor(currentInvestmentValue);
+    console.log(dollars.toLocaleString('en-US', {minimumFractionDigits: 0}));
+    var result = dollars.toLocaleString('en-US', {minimumFractionDigits: 0});
     $('.container').delay(0).fadeOut(200);
 //    $('.js-results').toggleClass('hidden');
     $('.container').delay(100).fadeIn(300);
     $('.js-money-form').remove();
-    $('.js-results').delay(500).html('<h3>Your investment would be worth </h3><strong>$' + result + '</strong><h3> today.</h3>');
+    $('.js-results').delay(500).html('<h3>Your investment would be worth </h3><h1>$' + result + '</h1><h3> today.</h3>');
     $('.js-results').delay(500).append('<h3>How does that make you feel?</h3>');
 //    $('.js-results').toggleClass('hidden');
 
