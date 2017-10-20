@@ -1,36 +1,24 @@
-$(function(){watchSubmit();});
-
-function watchSubmit() {
-  $('.js-search-form').submit(function(e) {
-    e.preventDefault();
-//    var insertDate = "2015-05-15";
-    var insertDate = $(this).find('.js-query').val();
-    console.log(insertDate);    
-    $('.container').delay(0).fadeOut(300);
-    $('.container').delay(100).fadeIn(300);
-   getDataFromApi(insertDate, displayOMDBSearchData);
-  //  $('.js-search-results').html(currentValueInvestment);
-  });
+// State
+let state = {
+  currentPrice: 0,
+  oldPrice: 0
 }
 
-var BitcoinApi = 'https://www.quandl.com/api/v3/datasets/BAVERAGE/USD.json?';
-
-function getDataFromApi(date, callback) {
-  var query = {
-    start_date: date,
-    end_date: date,
-    column_index: 1,
-    api_key: 'FBrkWkWwcZzmNY9TwkdC',   
-  }
-  $.getJSON(BitcoinApi, query, callback);
+// State modification functions
+function setCurrentPrice(data) {
+  let price = data.bpi.USD.rate;
+  price = parseFloat(price.replace(/[^\d\.\-]/g, ""));
+  state.currentPrice = price;
+  moneySubmit();
 }
 
-function displayOMDBSearchData(data) {
+
+function setHistoricalPrice(data) {
   var resultElement = '';
   if (data) {
-    var oldBitcoinPrice = data.dataset.data[0][1];
-    console.log(oldBitcoinPrice);
-    moneySubmit(oldBitcoinPrice);
+    state.oldPrice = data.bpi[Object.keys(data.bpi)];
+    getNewPrice(setCurrentPrice);
+    
   }
    else {
      resultElement += '<p>No results</p>';
@@ -38,41 +26,59 @@ function displayOMDBSearchData(data) {
   
    $('.js-search-results').html(resultElement);
 }
-
-function moneySubmit(oldprice) {
+// Render functions
+function moneySubmit() {
   $('.js-search-form').remove();
   $('.js-money-form').toggleClass('hidden');
   $('.js-money-form').submit(function(e) {
     e.preventDefault();
     var userMoneyInvestment = $(this).find('.js-query-money').val();
-    var currentInvestmentValue = (userMoneyInvestment / oldprice) * 1200;
+    getNewPrice(setCurrentPrice);
+    var currentInvestmentValue = (userMoneyInvestment / state.oldPrice) * state.currentPrice;
     var dollars = Math.floor(currentInvestmentValue);
-    console.log(dollars.toLocaleString('en-US', {minimumFractionDigits: 0}));
-    var result = dollars.toLocaleString('en-US', {minimumFractionDigits: 0});
     $('.container').delay(0).fadeOut(200);
-//    $('.js-results').toggleClass('hidden');
     $('.container').delay(100).fadeIn(300);
     $('.js-money-form').remove();
-    $('.js-results').delay(500).html('<h3>Your investment would be worth </h3><h1>$' + result + '</h1><h3> today.</h3>');
+    $('.js-results').delay(500).html('<h3>Your investment would be worth </h3><h1>$' + dollars + '</h1><h3> today.</h3>');
     $('.js-results').delay(500).append('<h3>How does that make you feel?</h3>');
-//    $('.js-results').toggleClass('hidden');
 
     createRestartButton();
   });
 }
 
-/*
-OTHER ISSUES:
--How to make sure inputs have correct format. Throw error for wrong format
+function createRestartButton () {
+    $('.js-results').append('<button class="button2" type="submit">Try Again</button>')
+}
 
-*/
+// Event Listeners and AJAX
+$(function(){watchSubmit();});
 
-//CSS stuff-----------------------------------------------------------------
+function watchSubmit() {
+  $('.js-search-form').submit(function(e) {
+    e.preventDefault();
+    var insertDate = $(this).find('.js-query').val();
+    $('.container').delay(0).fadeOut(300);
+    $('.container').delay(100).fadeIn(300);
+   getDataFromApi(insertDate, setHistoricalPrice);
+  });
+}
 
+var bitcoinApi = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+function getNewPrice(callback) {
+  $.getJSON(bitcoinApi, callback);
+}
+
+var historicalApi = 'https://api.coindesk.com/v1/bpi/historical/close.json&';
+function getDataFromApi(date, callback) {
+  var query = {
+    start: date,
+    end: date
+  }
+  $.getJSON(historicalApi, query, callback);
+}
 
 $("#welcome").click(function() {
      $("#hi").animate({width:'toggle'},700);
-//    $('#welcome').delay(100).fadeOut(2800)
 });
 
 
@@ -80,8 +86,6 @@ $('.js-results').on('click', 'button', function(event) {
     location.reload();
 });
 
-function createRestartButton () {
-    $('.js-results').append('<button class="button2" type="submit">Try Again</button>')
-}
-   
+
+
 
